@@ -1,15 +1,12 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-// import "bootstrap-icons/font/bootstrap-icons.css";
-// import "bootstrap/dist/css/bootstrap.css";
 import Genre from "./Genre";
 import CardLayout from "./CardLayout";
 
 const Movie = () => {
   const [movieList, setMovieList] = useState([]);
 
-  // Storing the updated page token everytime i receive a new
   const [releaseYear, setReleaseYear] = useState(2012);
   const [page, setPage] = useState(1);
   // const [genre, setGenre] = useState([]);
@@ -19,7 +16,6 @@ const Movie = () => {
   const updateSelectedGenres = (newSelectedGenres) => {
     setSelectedGenres(newSelectedGenres);
   };
-  // this will fetch message and store them in the above state
   const fetchMovies = (rYear) => {
     try {
       rYear = rYear || releaseYear;
@@ -32,26 +28,22 @@ const Movie = () => {
         .then((result) => {
           console.log(rYear);
           setReleaseYear(rYear + 1);
-          // Concating the newly received messages in the exisiting list
           if (!genreIds) {
             updatedMessageList = movieList.concat(result.results);
           } else {
             updatedMessageList = result.results;
           }
-          // updating the messagesList to te updatedMessageList from above
+          
           setMovieList(updatedMessageList);
           console.log("len",movieList.length)
         });
     } catch (error) {
-      // in any case of error i am emptying the list
-      // this should be avoided and instead a notification should be trigger that something has went wrong
-      setMovieList([]);
+           setMovieList([]);
       alert("Something has went wrong");
     }
   };
 
   useEffect(() => {
-    // Calling the fetchMessages on page load
     fetchMovies(2010);
   }, [selectedGenres]);
 
