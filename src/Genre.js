@@ -41,9 +41,9 @@ const Genre = ({ updateSelectedGenres }) => {
   };
 
   return (
-    <div className="container-fluid">
+    <div className="genre-container">
       <div className="row mb-3">
-        <div className="col-12 d-flex flex-wrap">
+        <div className="col-12 d-flex genre">
           {genre.map((g) => (
             <div className="m-2" key={g.id}>
               <button

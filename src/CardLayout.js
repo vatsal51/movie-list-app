@@ -2,7 +2,7 @@ import React, { memo } from "react";
 const img_300 = "https://image.tmdb.org/t/p/w300";
 const CardLayout = ({ state }) => {
   return (
-    <>
+    <div className="cards">
       {state.map((Val) => {
         const {
           name,
@@ -15,7 +15,7 @@ const CardLayout = ({ state }) => {
           id,
         } = Val;
         return (
-          <div key={id}>
+          <div key={id} className="cards">
             <div className="card bg-dark">
               <img
                 src={`${img_300}/${poster_path}`}
@@ -31,7 +31,7 @@ const CardLayout = ({ state }) => {
                   <i className="bi bi-star-fill"></i>
                 </h5>
                 <div className="d-flex fs-6 align-items-center justify-content-evenly movie">
-                  <div>Movie{id}</div>
+                  <div>{media_type === "tv" ? "TV" : "Movie"}</div>
                   <div>{first_air_date || release_date}</div>
                 </div>
               </div>
@@ -39,7 +39,7 @@ const CardLayout = ({ state }) => {
           </div>
         );
       })}
-    </>
+    </div>
   );
 };
 
