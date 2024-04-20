@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 const img_300 = "https://image.tmdb.org/t/p/w300";
-const CardLayout = ({ state, href, type }) => {
+const CardLayout = ({ state }) => {
   return (
     <>
       {state.map((Val) => {
@@ -14,7 +14,6 @@ const CardLayout = ({ state, href, type }) => {
           vote_average,
           id,
         } = Val;
-        const cardType = type ? type : media_type;
         return (
           <div key={id}>
             <div className="card bg-dark">
@@ -32,7 +31,7 @@ const CardLayout = ({ state, href, type }) => {
                   <i className="bi bi-star-fill"></i>
                 </h5>
                 <div className="d-flex fs-6 align-items-center justify-content-evenly movie">
-                  <div>{media_type === "tv" ? "TV" : "Movie"}</div>
+                  <div>Movie{id}</div>
                   <div>{first_air_date || release_date}</div>
                 </div>
               </div>
