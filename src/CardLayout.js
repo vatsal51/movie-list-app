@@ -17,7 +17,11 @@ const CardLayout = ({ state }) => {
         return (
           <div className="card " key={id}>
             <img
-              src={`${img_300}/${poster_path}`}
+              src={
+                poster_path
+                  ? `${img_300}/${poster_path}`
+                  : `https://placehold.co/300x450?text=No \nImage`
+              }
               placeholder="blur"
               width={500}
               height={500}
@@ -30,7 +34,7 @@ const CardLayout = ({ state }) => {
                 <i className="bi bi-star-fill"></i>
               </h5>
               <div className="d-flex fs-6 align-items-center justify-content-evenly movie">
-                <div>{media_type === "tv" ? "TV" : "Movie"}</div>
+                <div>{media_type}</div>
                 <div>{first_air_date || release_date}</div>
               </div>
             </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CardLayout from "./CardLayout";
 import Genre from "./Genre";
-import Search from "./Search"
+import Search from "./Search";
 import "./globals.css";
 
 const Movie = () => {
@@ -14,20 +14,22 @@ const Movie = () => {
   const firstYear = Math.min(...Object.keys(movieList)); // Get the earliest year in the movie list
   const [content, setContent] = useState([]);
 
-  const SetSearchContent = (content)=>{
-    setContent(content)
-  }
+  const SetSearchContent = (content) => {
+    setContent(content);
+  };
+  const scrollYear2012 = () => {
+    const element = document.querySelector(".year-2012");
+    if (element) {
+      console.log("2012");
+      element.scrollIntoView();
+    }
+  };
+
   const updateSelectedGenres = (newSelectedGenres) => {
     setSelectedGenres(newSelectedGenres);
     setMovieList({ 2012: [] });
     setReleaseYear(2012);
     fetchMovies(2012);
-    const scrollYear2012 = () => {
-      const element = document.querySelector(".year-2012");
-      if (element) {
-        element.scrollIntoView();
-      }
-    };
     setTimeout(scrollYear2012, 100);
   };
 
@@ -101,14 +103,11 @@ const Movie = () => {
 
   useEffect(() => {
     // Scroll to the year 2012 after the movies are loaded
-    const scrollYear2012 = () => {
-      const element = document.querySelector(".year-2012");
-      if (element) {
-        element.scrollIntoView();
-      }
-    };
     setTimeout(scrollYear2012, 100);
-  }, []);
+    return () => {
+      clearTimeout(scrollYear2012);
+    };
+  }, [content]);
   const isEmptyMovieList = Object.values(movieList).every(
     (movies) => movies.length === 0
   );
@@ -118,35 +117,43 @@ const Movie = () => {
         selectedGenres={selectedGenres}
         updateSelectedGenres={updateSelectedGenres}
       />
-      <Search SetSearchContent={SetSearchContent}/>
-      <div
-        className="container"
-        style={{ overflowY: "scroll", height: "80vh" }}
-        onScroll={handleScroll}
-      >
-        {isEmptyMovieList ? (
-          <div className="text-center text-white fs-4">
-            <h3>No movies available for selected genres</h3>
+      <Search SetSearchContent={SetSearchContent} />
+      {content.length > 0 ? ( // Check if search content is present
+        <div className="search-container" style={{ overflowY: "scroll" }}>
+          <div className="row pt-3 mb-5 pb-5">
+            <CardLayout state={content} />
           </div>
-        ) : (
-          Object.entries(movieList).map(([year, movies]) =>
-            movies.length === 0 ? (
-              <div key={year} className={`movie-year year-${year}`}>
-                <div className="text-center text-white fs-4">
-                  No movies available for {year}
+        </div>
+      ) : (
+        <div
+          className="container"
+          style={{ overflowY: "scroll", height: "80vh" }}
+          onScroll={handleScroll}
+        >
+          {isEmptyMovieList ? (
+            <div className="text-center text-white fs-4">
+              <h3>No movies available for selected genres</h3>
+            </div>
+          ) : (
+            Object.entries(movieList).map(([year, movies]) =>
+              movies.length === 0 ? (
+                <div key={year} className={`movie-year year-${year}`}>
+                  <div className="text-center text-white fs-4">
+                    No movies available for {year}
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <div key={year} className={`movie-year year-${year}`}>
-                <div className="col-12 text-center mt-2 mb-4 fs-1 fw-bold text-decoration-underline text-white">
-                  <h1>Movies of {year}</h1>
+              ) : (
+                <div key={year} className={`movie-year year-${year}`}>
+                  <div className="col-12 text-center mt-2 mb-4 fs-1 fw-bold text-decoration-underline text-white">
+                    <h1>Movies of {year}</h1>
+                  </div>
+                  <CardLayout state={movies} />
                 </div>
-                <CardLayout state={movies} />
-              </div>
+              )
             )
-          )
-        )}
-      </div>
+          )}
+        </div>
+      )}
     </>
   );
 };
