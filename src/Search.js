@@ -1,12 +1,7 @@
 "use client";
-import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import "bootstrap/dist/css/bootstrap.css";
-import Pagination from "../pagination";
-import { img_300, unavailable, loading } from "../config";
-
 const Search = () => {
+  const img_300 = "https://image.tmdb.org/t/p/w300";
   const [searchText, setSearchText] = useState("");
   const [page, setPage] = useState(1);
   const [content, setContent] = useState([]);
@@ -45,7 +40,7 @@ const Search = () => {
               className="btn btn-primary text-white mx-2 col-md-1 col-sm-2 py-2"
               onClick={Search}
             >
-              <i className="bi bi-search"></i>
+              <i className="bi bi-search">Search</i>
             </button>
           </div>
           {content &&
@@ -64,16 +59,11 @@ const Search = () => {
                 <>
                   <div className="col-md-3 col-sm-4 py-3" id="card" key={id}>
                     <div className="card bg-dark" key={id}>
-                      <Image
+                      <img
                         width={500}
                         height={500}
-                        src={
-                          poster_path
-                            ? `${img_300}/${poster_path}`
-                            : unavailable
-                        }
+                        src={`${img_300}/${poster_path}`}
                         placeholder="blur"
-                        blurDataURL={loading}
                         alt={title}
                         className="card-img-top pt-3 pb-0 px-3"
                       />
@@ -95,7 +85,6 @@ const Search = () => {
                 </>
               );
             })}
-          {page > 1 && <Pagination page={page} setPage={setPage} />}
         </div>
       </div>
     </>
