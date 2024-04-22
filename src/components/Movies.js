@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import CardLayout from "./CardLayout";
 import Genre from "./Genre";
 import Search from "./Search";
-import "./globals.css";
+
 
 const Movie = () => {
   const [movieList, setMovieList] = useState({ 2010: [], 2011: [], 2012: [] });
