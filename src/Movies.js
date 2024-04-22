@@ -46,7 +46,7 @@ const Movie = () => {
             ...prevMovieList,
             [rYear]: result.results,
           }));
-          setReleaseYear(rYear + 1);
+          // setReleaseYear(rYear + 1);
           return rYear; // Return the requested year
         });
     } catch (error) {
