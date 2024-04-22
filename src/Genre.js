@@ -21,7 +21,6 @@ const Genre = ({ updateSelectedGenres }) => {
 
     fetchGenres();
   }, []);
-
   const handleGenreClick = (clickedGenre) => {
     if (clickedGenre.id === "all") {
       setSelectedGenres([clickedGenre]);
@@ -35,7 +34,6 @@ const Genre = ({ updateSelectedGenres }) => {
         if (isSelected) {
           return prevGenres.filter((genre) => genre.id !== clickedGenre.id);
         } else {
-          // Check if "All" is selected and remove it
           const updatedGenres = prevGenres.filter(
             (genre) => genre.id !== "all"
           );
@@ -49,7 +47,6 @@ const Genre = ({ updateSelectedGenres }) => {
             (genre) => genre.id !== clickedGenre.id
           );
         } else {
-          // Check if "All" is selected and remove it
           const updatedSelectedGenres = prevSelectedGenres.filter(
             (genre) => genre.id !== "all"
           );

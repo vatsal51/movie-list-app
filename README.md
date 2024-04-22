@@ -1,32 +1,30 @@
----
+## Moviefix
 
-# Movie Search App
+Moviefix is a React-based web app that helps you find movies easily using the TMDb API.
 
-This is a React-based web application that allows users to search for movies and TV shows using the TMDb (The Movie Database) API.
+### Getting Started
 
-## Getting Started
+1. **Clone**: Clone this repository to your computer.
+2. **Install**: Use `npm install` or `yarn install` to install dependencies.
+3. **Start**: Run `npm start` or `yarn start` to start the development server.
+4. **View**: Open your browser and go to `http://localhost:3000`.
 
-To run the project locally, follow these steps:
+### Features
 
-1. Clone this repository to your local machine.
-2. Install dependencies by running `npm install` or `yarn install`.
-3. Start the development server by running `npm start` or `yarn start`.
-4. Open your browser and navigate to `http://localhost:3000`.
+- **Search**: Find movies by enteringx keywords.
+- **Details**: View movie details like title, release date, poster image, and rating.
+- **Infinite Scroll**: Load more results seamlessly as you scroll.
+- **Genre Filtering**: Refine your search by filtering movies based on genre.
+- **Responsive Design**: Enjoy optimal viewing on any device.
 
-## Features
+### Requirements Covered
 
-- Search for movies and TV shows using keywords.
-- View details of each movie or TV show, including its title, release date, poster image, and rating.
-- Infinite scroll for loading more search results.
-- Genre filtering to refine search results.
-- Responsive design for optimal viewing on different devices.
+- Load only 20 movies per year, with 2012 as the default display year.
+- Implement smooth bidirectional infinite scroll for seamless loading.
+- Integrate search functionality using the TMDb API.
+- Provide a user-friendly filter interface for genre-based movie filtering.
 
-## Requirements Covered
+### To Do
 
-- [x] Implement search functionality using the TMDb API.
-- [x] Display search results with basic information for each movie or TV show.
-- [x] Implement infinite scroll to load more search results.
-- [x] Allow users to filter search results by genre.
-- [x] Provide a README file with instructions for running the project.
-
----
+- Improve search result display for better user experience.
+- Consider implementing TypeScript for enhanced code safety and readability.

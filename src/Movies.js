@@ -6,11 +6,9 @@ import "./globals.css";
 
 const Movie = () => {
   const [movieList, setMovieList] = useState({ 2010: [], 2011: [], 2012: [] });
-
-  // const [releaseYear, setReleaseYear] = useState(2010);
   const [selectedGenres, setSelectedGenres] = useState([]);
-  const lastYear = Math.max(...Object.keys(movieList)); // Get the latest year in the movie list
-  const firstYear = Math.min(...Object.keys(movieList)); // Get the earliest year in the movie list
+  const lastYear = Math.max(...Object.keys(movieList));
+  const firstYear = Math.min(...Object.keys(movieList));
   const [content, setContent] = useState([]);
   const containerRef = useRef(null);
   const SetSearchContent = (content) => {
@@ -46,7 +44,6 @@ const Movie = () => {
             ...prevMovieList,
             [rYear]: result.results,
           }));
-          // setReleaseYear(rYear + 1);
           return rYear;
         });
     } catch (error) {
@@ -59,19 +56,14 @@ const Movie = () => {
     const scrollHeight = containerRef.current.scrollHeight;
     const clientHeight = containerRef.current.clientHeight;
     const scrollThreshold = 0.9;
-    if (scrollTop < 2000) {
-      // Scrolled to the top, load movies of the previous year
-      console.log("sc top");
+    if (scrollTop < 1500) {
       fetchMovies(firstYear - 1);
     } else if (
       scrollTop + clientHeight >= scrollHeight * scrollThreshold &&
       lastYear < new Date().getFullYear()
     ) {
-      // Scrolled to the bottom, load movies of the next year
-      console.log("sc bot");
       fetchMovies(lastYear + 1);
     }
-    console.log("scrolltop", scrollTop, "year");
   };
 
   useEffect(() => {
@@ -80,12 +72,12 @@ const Movie = () => {
   }, [selectedGenres]);
 
   useEffect(() => {
-    // Scroll to the year 2012 after the movies are loaded
     setTimeout(scrollYear2012, 100);
     return () => {
       clearTimeout(scrollYear2012);
     };
   }, [content]);
+
   const isEmptyMovieList = Object.values(movieList).every(
     (movies) => movies.length === 0
   );
@@ -96,43 +88,43 @@ const Movie = () => {
         updateSelectedGenres={updateSelectedGenres}
       />
       <Search SetSearchContent={SetSearchContent} />
-      {content.length > 0 ? ( // Check if search content is present
+      {content.length > 0 ? (
         <div>
-          <div className="search-container">
+          <div className="searchresult-container container">
             <h3>Search results</h3>
             <CardLayout state={content} />
           </div>
         </div>
       ) : (
-        <div
-          className="container"
-          style={{ overflowY: "scroll", height: "80vh" }}
-          ref={containerRef}
-          onScroll={handleScroll}
-        >
-          {isEmptyMovieList ? (
-            <div>
-              <h3>No movies available for selected genres</h3>
-            </div>
-          ) : (
-            Object.entries(movieList).map(([year, movies]) =>
-              movies.length === 0 ? (
-                <div key={year} className={`movie-year year-${year}`}>
-                  <h1>Movies of {year}</h1>
-                  <div style={{ color: "red" }}>
-                    No movies available for {year}
+        <div className="movie-wrapper">
+          <div
+            className="movie-container "
+            ref={containerRef}
+            onScroll={handleScroll}
+          >
+            {isEmptyMovieList ? (
+              <div>
+                <h3>No movies available for selected genres</h3>
+              </div>
+            ) : (
+              Object.entries(movieList).map(([year, movies]) =>
+                movies.length === 0 ? (
+                  <div key={year} className={`container movie-year year-${year}`}>
+                    <h1>{year}</h1>
+                    <div style={{ color: "red" }}>
+                      No movies available for {year}
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <div key={year} className={`movie-year year-${year}`}>
-                  <div>
-                    <h1>Movies of {year}</h1>
+                ) : (
+                  <div key={year} className={`container movie-year year-${year}`}>
+                    <p className="year">{year}</p>
+
+                    <CardLayout state={movies} />
                   </div>
-                  <CardLayout state={movies} />
-                </div>
+                )
               )
-            )
-          )}
+            )}
+          </div>
         </div>
       )}
     </>
