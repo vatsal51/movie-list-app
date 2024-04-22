@@ -47,7 +47,7 @@ input.search {
 }
 .movie-container,
 .searchresult-container {
-  height: calc(100vh - 200px);
+  height: calc(100vh - 225px);
 }
 .movie-container {
   overflow-y: scroll;
@@ -66,16 +66,20 @@ input.search {
   gap: 12px;
   flex-wrap: wrap;
 }
+
 .card {
-  flex: 0 0 calc((100% / 4) - 30px);
-  max-width: 260px;
-  min-width: 158px;
+  width: calc(25% - 9px);
   border: 1px solid #fff;
   border-radius: 5px;
   color: #fff;
   transition: all 0.3s ease-in-out;
   overflow: hidden;
   cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+  .card {
+    width: calc(50% - 6px);
+  }
 }
 .rating {
   vertical-align: -1px;
