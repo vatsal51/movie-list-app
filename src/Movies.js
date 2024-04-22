@@ -8,7 +8,6 @@ const Movie = () => {
   const [movieList, setMovieList] = useState({ 2010: [], 2011: [], 2012: [] });
 
   const [releaseYear, setReleaseYear] = useState(2010);
-  // const [tempYear, setTempYear] = useState();
   const [selectedGenres, setSelectedGenres] = useState([]);
   const lastYear = Math.max(...Object.keys(movieList)); // Get the latest year in the movie list
   const firstYear = Math.min(...Object.keys(movieList)); // Get the earliest year in the movie list
@@ -43,32 +42,11 @@ const Movie = () => {
       return fetch(url)
         .then((response) => response.json())
         .then((result) => {
-          // let updatedMovieList = [];
-          // if (!selectedGenres) {
-          //   // updatedMovieList = movieList.concat(result.results);
-          // } else {
-          //   if (rYear === releaseYear) {
-          //     // Append the new movies to the bottom if it's the current year
-          //     // updatedMovieList = { ...movieList, [rYear]: result.results };
-          //   } else if (rYear < releaseYear) {
-          //     // Add the new movies to the top if it's the previous year
-          //     // updatedMovieList = { [rYear]: result.results, ...movieList };
-          //     setReleaseYear(rYear);
-          //   } else {
-          //     // Add the new movies to the bottom if it's the next year
-          //     // updatedMovieList = { ...movieList, [rYear]: result.results };
-          //   }
-          // }
-          // setMovieList(updatedMovieList);
           setMovieList((prevMovieList) => ({
             ...prevMovieList,
             [rYear]: result.results,
           }));
-
-          // setReleaseYear(rYear);
-          // setTempYear(rYear);
           setReleaseYear(rYear + 1);
-
           return rYear; // Return the requested year
         });
     } catch (error) {
@@ -119,8 +97,9 @@ const Movie = () => {
       />
       <Search SetSearchContent={SetSearchContent} />
       {content.length > 0 ? ( // Check if search content is present
-        <div className="search-container" style={{ overflowY: "scroll" }}>
-          <div className="row pt-3 mb-5 pb-5">
+        <div>
+          <div className="search-container">
+            <h3>Search results</h3>
             <CardLayout state={content} />
           </div>
         </div>
@@ -131,20 +110,18 @@ const Movie = () => {
           onScroll={handleScroll}
         >
           {isEmptyMovieList ? (
-            <div className="text-center text-white fs-4">
+            <div>
               <h3>No movies available for selected genres</h3>
             </div>
           ) : (
             Object.entries(movieList).map(([year, movies]) =>
               movies.length === 0 ? (
                 <div key={year} className={`movie-year year-${year}`}>
-                  <div className="text-center text-white fs-4">
-                    No movies available for {year}
-                  </div>
+                  <div>No movies available for {year}</div>
                 </div>
               ) : (
                 <div key={year} className={`movie-year year-${year}`}>
-                  <div className="col-12 text-center mt-2 mb-4 fs-1 fw-bold text-decoration-underline text-white">
+                  <div>
                     <h1>Movies of {year}</h1>
                   </div>
                   <CardLayout state={movies} />

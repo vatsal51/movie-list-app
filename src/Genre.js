@@ -61,12 +61,11 @@ const Genre = ({ updateSelectedGenres }) => {
 
   return (
     <div className="genre-container">
-      {/* <div className="row mb-3"> */}
-      <div className="col-12 d-flex genre">
+      <div className="genre">
         {genres.map((genre) => (
           <div key={genre.id}>
             <button
-              className={`bg-dark text-white px-4 py-2 text-center button ${
+              className={`button ${
                 selectedGenres.some(
                   (selectedGenre) => selectedGenre.id === genre.id
                 )
@@ -80,7 +79,6 @@ const Genre = ({ updateSelectedGenres }) => {
           </div>
         ))}
       </div>
-      {/* </div> */}
     </div>
   );
 };

@@ -23,17 +23,13 @@ const CardLayout = ({ state }) => {
                   : `https://placehold.co/300x450?text=No \nImage`
               }
               placeholder="blur"
-              width={500}
-              height={500}
-              className="card-img-top pt-3 pb-0 px-3"
               alt={`Poster for ${title || name}`}
             />
             <div className="card-body">
-              <h5 className="card-title text-center fs-5">
-                {title || name} / {parseFloat(vote_average).toFixed(1)}{" "}
-                <i className="bi bi-star-fill"></i>
+              <h5 className="card-title">
+                {title || name} / {parseFloat(vote_average).toFixed(1)} <i></i>
               </h5>
-              <div className="d-flex fs-6 align-items-center justify-content-evenly movie">
+              <div>
                 <div>{media_type}</div>
                 <div>{first_air_date || release_date}</div>
               </div>

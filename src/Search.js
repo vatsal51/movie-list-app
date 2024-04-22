@@ -37,8 +37,8 @@ const Search = ({ SetSearchContent }) => {
   return (
     <>
       <div className="container">
-        <div className="row pt-3 mb-5 pb-5">
-          <div className="col-12 pt-5 pb-3 mt-5 d-flex justify-content-center align-items-center">
+        <div>
+          <div>
             <input
               type="text"
               placeholder="search..."
