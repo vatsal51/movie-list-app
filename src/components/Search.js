@@ -5,12 +5,12 @@ const Search = ({ SetSearchContent }) => {
   const [debouncedSearchText, setDebouncedSearchText] = useState("");
 
   useEffect(() => {
-    const timerId = setTimeout(() => {
+    const debounceTimer = setTimeout(() => {
       setDebouncedSearchText(searchText);
     }, 500);
 
     return () => {
-      clearTimeout(timerId);
+      clearTimeout(debounceTimer);
     };
   }, [searchText]);
 

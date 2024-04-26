@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 const Genre = ({ updateSelectedGenres }) => {
-  const [selectedGenres, setSelectedGenres] = useState([]);
+  const [select, setSelect] = useState([]);
   const [genres, setGenres] = useState([]);
 
   useEffect(() => {
@@ -12,7 +12,7 @@ const Genre = ({ updateSelectedGenres }) => {
         );
         const result = await data.json();
         const allGenre = { id: "all", name: "All" };
-        setSelectedGenres([allGenre]);
+        setSelect([allGenre]);
         setGenres([allGenre, ...result.genres]);
       } catch (error) {
         console.error("Error fetching genres:", error);
@@ -23,14 +23,12 @@ const Genre = ({ updateSelectedGenres }) => {
   }, []);
   const handleGenreClick = (clickedGenre) => {
     if (clickedGenre.id === "all") {
-      setSelectedGenres([clickedGenre]);
+      setSelect([clickedGenre]);
       updateSelectedGenres([]);
     } else {
-      const isSelected = selectedGenres.some(
-        (genre) => genre.id === clickedGenre.id
-      );
+      const isSelected = select.some((genre) => genre.id === clickedGenre.id);
 
-      setSelectedGenres((prevGenres) => {
+      setSelect((prevGenres) => {
         if (isSelected) {
           return prevGenres.filter((genre) => genre.id !== clickedGenre.id);
         } else {
@@ -63,9 +61,7 @@ const Genre = ({ updateSelectedGenres }) => {
           <div key={genre.id}>
             <button
               className={`button ${
-                selectedGenres.some(
-                  (selectedGenre) => selectedGenre.id === genre.id
-                )
+                select.some((selectedGenre) => selectedGenre.id === genre.id)
                   ? "selected"
                   : ""
               }`}
