@@ -96,16 +96,22 @@ const Movie = () => {
       lastYear < new Date().getFullYear()
     ) {
       debouncedFetchMovies(lastYear + 1);
+      debouncedFetchMovies(lastYear + 1);
     }
   };
 
-  // Initial fetch on mount (or genre change)
-  useEffect(() => {
-    const initialYears = [2010, 2011, 2012];
-    initialYears.forEach((year) => {
-      fetchMovies(year);
+useEffect(() => {
+  const initialYears = [2010, 2011, 2012];
+
+  Promise.all(initialYears.map((year) => fetchMovies(year)))
+    .then((results) => {
+      console.log("Initial movies fetched for years:", results);
+    })
+    .catch((error) => {
+      console.error("Error fetching initial movies:", error);
     });
-  }, [fetchMovies]);
+}, [fetchMovies]);
+
 
   useEffect(() => {
     setTimeout(scrollYear2012, 100);
